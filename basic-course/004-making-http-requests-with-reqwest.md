@@ -130,3 +130,37 @@ let response = client
 
 dbg!(response);
 ```
+
+You can now run
+
+```shell
+API_TOKEN=<my-token> cargo run -- san francisco
+```
+
+and you will see your output look something like this. `Object`, `Array`, `String`, `Number` are all variants of the `serde_json::Value` enum, which means their fully qualified names are `serde_json::Value::Object`.
+
+```rust
+Object({
+    "data": Array([
+        Object({
+            "aqi": String("85"),
+            "station": Object({
+                "country": String("MX"),
+                "geo": Array([Number(19.260413888889),
+                Number(-99.645613888889)]),
+                "name": String("Ceboruco,
+                Toluca,
+                Mexico"),
+                "url": String("mexico/toluca/ceboruco")
+            }),
+            "time": Object({
+                "stime": String("2021-05-31 23:00:00"),
+                "tz": String("-05:00"),
+                "vtime": Number(1622520000)
+            }),
+            "uid": Number(3547)
+        }),
+    ]),
+    "status": String("ok")
+})
+```
