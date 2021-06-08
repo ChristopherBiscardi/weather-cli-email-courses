@@ -1,12 +1,8 @@
 # Introducing Rust
 
-The Rust language releases a major edition approximately once every three years. 2015, 2018, 2021, and so on. Any crate (that's the name for a Rust package) can be specify which edition it wants to be compiled with when you build your project. So while your crate/binary might be built with Rust 2018, one of your dependencies could be using Rust 2015, and this is totally fine.
+## Install Rustup
 
-In between major releases, the Rust project does rolling releases every six weeks and also nightly releases, so if you want to check how your program performs with some new improvement to the compiler, or test out new stable features we need a way to switch between versions of Rust easily.
-
-That tool is called Rustup.
-
-## install rustup
+In between major Editions, the Rust project does rolling releases every six weeks and also nightly releases, so if you want to check how your program performs with some new improvement to the compiler, or test out new stable features we need a way to switch between versions of Rust easily.
 
 Rustup is how you manage different Rust versions on your computer.
 
@@ -18,9 +14,17 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 This will install a set of tools that you can use to develop and compile Rust programs. The most important component is cargo, Rust's package manager.
 
+<Aside>
+The Rust language releases a major edition approximately once every three years. 2015, 2018, 2021, and so on. Any crate (that's the name for a Rust package) can specify which edition it wants to be compiled with when you build your project. So while your crate/binary might be built with Rust 2018, one of your dependencies could be using Rust 2015, and this is totally fine.
+</Aside>
+
 ## Cargo
 
-Cargo works a lot like npm. The biggest difference is that it doesn't come with a command that will add a crate to your Cargo.toml. To get that, install [cargo-edit](https://crates.io/crates/cargo-edit) which will allow you to use cargo to `add`, `update`, or `rm` dependencies.
+Cargo works a lot like npm. The biggest difference is that it doesn't come with a command that will add a crate to your Cargo.toml. To get that:
+
+Install [cargo-edit](https://crates.io/crates/cargo-edit).
+
+`cargo-edit` will allow you to use cargo to `add`, `update`, or `rm` dependencies.
 
 Initialize the project we'll be working in using cargo. This will create a new package named `weather-cli` with some files in the `./weather-cli` directory.
 
@@ -81,7 +85,7 @@ Hello, world!
 ```
 
 <Aside>
-Because we only have a single binary target in our project at the moment, cargo can guess what we mean and we don't have to explicitly specify which binary we want to run. If we ever have more than a single binary we can specify which one we want to run with `--bin`.
+Because we only haven't specified any targets of our own in `Cargo.toml` *and* we have the conventional binary entry point `src/main.rs` that means that we have a single binary target in our project at the moment. Cargo can guess what we mean and we don't have to explicitly specify which binary we want to run (again, because we only have one to choose from). If we ever have more than a single binary we can specify which one we want to run with `--bin`.
 
 ```shell
 cargo run --bin weather-cli
@@ -93,9 +97,9 @@ The `cargo run` output tells us what it did.
 
 First it compiled the `weather-cli` binary at version `0.1.0` from the directory `/Users/chris/rust-adventure/weather-cli`.
 
-Then it finished and gaves us some metadata. We built our binary in debug-mode, which is faster to compile and slower to run, so we see `unoptimized + debuginfo` and how long the compile took.
+Then it finished and gave us some metadata. We built our binary in debug-mode, which is faster to compile and slower to run, so we see `unoptimized + debuginfo` and how long the compile took.
 
-Finally, cargo ran the binary for us, and gives us the path to the compiled binary that it ran. This path is in `target/`, which is where all of our build artifacts will end up. `target/debug` is the folder for debug artifacts, and `target/release` would be where our release artifacts would be stored. Since the Rust compiler is an incremental compiler, the target directory is also where intermediary compilation artifacts are stored. This is why the second compile is faster than the first.
+Finally, cargo ran the binary for us, and gave us the path to the compiled binary that it ran. This path is in `target/`, which is where all of our build artifacts will end up. `target/debug` is the folder for debug artifacts, and `target/release` would be where our release artifacts would be stored. Since the Rust compiler is an incremental compiler, the target directory is also where intermediary compilation artifacts are stored. This is why the second compile is faster than the first.
 
 Our program used a `println!` to print some output to stdout, and we also see that `Hello, world!` was printed out when our binary ran.
 

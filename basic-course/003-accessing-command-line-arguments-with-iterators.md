@@ -78,6 +78,18 @@ In our case we want to take all of the arguments passed to our CLI and send them
 
 Because `.collect` is so generic, we often need to give Rust a bit of a type hint to tell it what type we want the return type to be. So when we declare `args`, we also specify that `args` is a `String`, and `.collect` will know what to do to make a `String`.
 
+If we didn't add the `String` type annotation to `args: String`, the Rust compiler would tell us we needed to annotate it when we tried to compile and the compile would fail.
+
+```
+error[E0282]: type annotations needed
+ --> src/main.rs:6:9
+  |
+6 |     let args = arg_iterator.collect();
+  |         ^^^^ consider giving `args` a type
+
+error: aborting due to previous error
+```
+
 ## fin
 
 We've added the following to our program, scooping up all of the arguments to our CLI, skipping the binary name, and converting the arguments into a `String` for later use.

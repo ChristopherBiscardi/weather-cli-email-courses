@@ -9,6 +9,17 @@ fn main() {
 }
 ```
 
+Conceptually, in JavaScript, you can think of `std` like it's a package, `env` like it's a specific group of exports in that package, and `var` as a function in `env`.
+
+```javascript
+import { var } from 'std/env';
+
+function main() {
+    const api_token = var("API_TOKEN");
+    console.log({api_token});
+}
+```
+
 The Rust standard library is provided as the `std` crate. In practice this means `std` behaves much like any other package, except that it's always around and you don't have to install it. This also means you can create programs without the `std` crate, which is called `no_std`.
 
 `<image>std modules: env, fs, path, etc, with ... for most and (fn var) in env`
@@ -37,6 +48,37 @@ enum Result<THING_WE_WANT, ERROR_THAT_COULD_HAPPEN> {
 So that makes the `Result` type we're getting back from `std::env::var`: `Result<String, VarError>`. If successful we'll get back a [`String`](https://doc.rust-lang.org/std/string/struct.String.html) and if unsuccessful we'll get back a [`VarError`](https://doc.rust-lang.org/std/env/enum.VarError.html).
 
 In Rust, we use `Result` quite a bit to handle errors.
+
+## dbg!
+
+Let's take a short detour to examine the return value of `std::env::var` in our program. Using `dbg!` we can print out `api_token` to the console and inspect its value for ourselves.
+
+```rust
+fn main() {
+    let api_token = std::env::var("API_TOKEN");
+    dbg!(api_token);
+}
+```
+
+The `dbg` macro is different than the `println!` macro in a couple important ways and is specifically used for debugging your own code. `println!` prints exactly what you ask it to, to stdout while `dbg` includes a bunch of additional debugging information.
+
+So if `API_TOKEN` is not set in the environment, we will see the source file name and line number that the `dbg!` is called on. This allows us to the file and line a dbg log came from.
+
+After the filename `dbg!` will print out the expression we gave it and then the value that expression evaluates to. In this case we passed in the `api_token` variable name and the value is the `Err(NotPresent)` we talked about earlier.
+
+```
+[src/main.rs:3] api_token = Err(
+    NotPresent,
+)
+```
+
+A successful execution of `std::env::var` will output the following using `dbg!`.
+
+```
+[src/main.rs:3] api_token = Ok(
+    "my-token",
+)
+```
 
 ## .expect
 
