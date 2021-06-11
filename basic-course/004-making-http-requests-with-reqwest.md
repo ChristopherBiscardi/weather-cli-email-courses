@@ -164,3 +164,34 @@ Object({
     "status": String("ok")
 })
 ```
+
+## Quiz
+
+Here is a link to [the reqwest docs](https://docs.rs/reqwest/0.11.3/reqwest/blocking/struct.RequestBuilder.html) for `RequestBuilder`. Let's say you wanted to add a user agent header to the reqwest (some services, like Discord, require you to set a unique user agent for your client).
+
+How would you add the user agent header?
+
+### Answers
+
+You can use the `.header` function on `RequestBuilder` to add additional headers.
+
+```rust
+.header(reqwest::header::USER_AGENT, "my weather app")
+```
+
+Turning the program into this:
+
+```rust
+let client = reqwest::blocking::Client::new();
+
+let response = client
+    .get("https://api.waqi.info/search/")
+    .query(&[("token", api_token), ("keyword", args)])
+    .header(reqwest::header::USER_AGENT, "my weather app")
+    .send()
+    .expect("a successful request")
+    .json::<serde_json::Value>()
+    .expect("expected the body to be json");
+
+dbg!(response);
+```

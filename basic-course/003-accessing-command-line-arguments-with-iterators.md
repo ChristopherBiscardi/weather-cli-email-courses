@@ -107,3 +107,11 @@ Feel free to add a `dbg!` before running `cargo run` once again.
 ```shell
 API_TOKEN=<my-token> cargo run -- beijing
 ```
+
+## Quiz
+
+We've used `std::env::args` here but for more complex applications we'd likely use a crate. Using [crates.io](https://crates.io/) or [lib.rs](https://lib.rs/) find a crate that looks like it would be useful for command line argument and flag parsing.
+
+### Answers
+
+Popular crates include clap and structopt but there are many more as well. The important part here is knowing what crates.io and lib.rs are and how to navigate them to find what you want.
