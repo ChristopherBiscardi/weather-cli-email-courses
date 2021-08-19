@@ -62,7 +62,7 @@ fn main() {
 
 The `dbg` macro is different than the `println!` macro in a couple important ways and is specifically used for debugging your own code. `println!` prints exactly what you ask it to, to stdout while `dbg` includes a bunch of additional debugging information.
 
-So if `API_TOKEN` is not set in the environment, we will see the source file name and line number that the `dbg!` is called on. This allows us to the file and line a dbg log came from.
+So if `API_TOKEN` is not set in the environment, we will see the source file name and line number that the `dbg!` is called on. This allows us to find the file and line a dbg log came from.
 
 After the filename `dbg!` will print out the expression we gave it and then the value that expression evaluates to. In this case we passed in the `api_token` variable name and the value is the `Err(NotPresent)` we talked about earlier.
 
