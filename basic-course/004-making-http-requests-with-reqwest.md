@@ -12,6 +12,7 @@ fn main() {
         .expect("a successful request")
         .json::<serde_json::Value>()
         .expect("expected the body to be json");
+}
 ```
 
 Today we add a few dependencies to our `Cargo.toml`: `reqwest`, `serde`, and `serde_json`.
